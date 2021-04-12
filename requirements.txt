@@ -1,0 +1,4 @@
+jira==2.0.0 
+browser-cookie3==0.12.0 
+requests==2.25.1 
+ipython
