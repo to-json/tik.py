@@ -12,7 +12,8 @@ from IPython import embed
 # to everything. could do something with an object and initializer, but, no.
 
 config = configparser.ConfigParser()
-config.read('tik.ini')
+conf_path = os.path.dirname(__file__) + '/tik.ini'
+config.read(conf_path)
 fields = config.items('fields')
 browser = config.get('other', 'browser')
 jira_url = config.get('other', 'jira_url')
@@ -67,9 +68,9 @@ def interactive_transition(ticket):
 
 def display_extended_fields(ticket, fields):
     for field in fields:
-        field_accessor = "customfield_" + field[0]
+        field_accessor = "customfield_" + field[1]
         if hasattr(ticket.fields, field_accessor):
-            print("{0}: {1}".format(field[1], 
+            print("{0}: {1}".format(field[0], 
                                     getattr(ticket.fields, field_accessor)))
 
 def assignee(ticket):
