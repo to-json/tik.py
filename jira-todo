@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+from jira import JIRA
+import browser_cookie3
+import configparser
+import os
+
+config = configparser.ConfigParser()
+conf_path = os.path.dirname(__file__) + '/tik.ini'
+config.read(conf_path)
+browser = config.get('other', 'browser')
+jira_url = config.get('other', 'jira_url')
+filters = config.items('filters')
+
+
+def displayable_filter(filter):
+    return [{'summary': i.fields.summary, 'link': i.permalink(), 'key': i.key} 
+            for i in  jira.search_issues(jira.filter(filter).jql)]
+
+def interactive_filter_select(filters):
+    my_filters  = [(i, t[0], t[1]) for i, t in enumerate(filters)]
+    for mf in my_filters:
+        print(str(mf[0]) + ": " + str(mf[1]))
+
+    target = None
+    while not (target and target.isdigit()):
+        target = input("? ")
+    return my_filters[int(target)][2]
+
+def print_tickets(tickets):
+    for ticket in tickets:
+        message = ticket['key'] + ":" + ticket['summary'] + " (" + ticket["link"] + ")"
+        print(message)
+
+# keeping this for future default flag addition
+# my_issuefilter = 21300
+
+target_filter = interactive_filter_select(filters)
+
+cookies = getattr(browser_cookie3, browser)()
+jira = JIRA({'cookies': cookies, 
+                'server': jira_url})
+
+print_tickets(displayable_filter(target_filter))

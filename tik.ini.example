@@ -1,0 +1,9 @@
+[fields]
+fieldname = 12345
+
+[filters]
+filtername = 67890
+
+[other]
+browser = chrome
+jira_url = https://mycompany.atlassian.net

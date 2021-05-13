@@ -19,6 +19,10 @@ reachable by the `python` or `python3` on your `path`. then just stick tik.py
 somewhere on your path and `chmod +x` it. make sure `tik.ini` is in the same
 dir. a `tik.ini.example` is provided, you know the drill.
 
+A `jira-todo` is also provided as an example of a one off script using some parts
+from here to accomplish something that didn't really fit into `tik` proper. it 
+can also just be dropped onto the `PATH` in the same dir as `tik.ini`
+
 ## But I'm not on a unix!
 
 condolences
@@ -30,7 +34,7 @@ this is a special hell
 jira calls every displayed field that's not part of the unmodified jira config
 `customfield_<int>`. "How to i get a mapping from those to their names?" you ask?
 
-you don't!
+you don't! (I actually did eventually figure this out, but it's absurd)
 
 i sat in ipython for about an hour looking at random fields and setting the visible
 fields on my test ticket to different things, in order to pull out the 4 or so fields
